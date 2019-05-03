@@ -231,57 +231,119 @@
 	</div>
 	<hr>	
 
+	<div>
+		<td>
+			<button class="btn btn-secondary btn-lg" style="width: 200px" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Otros</button>
+		</td>
+			<td>&nbsp; &nbsp;</td>
+		<td><button class="btn btn-success btn-lg" style="width: 250px" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">Folios</button>
+			
+			
+		</td>
+
+	</div>
+	<br>
 <!-- info nueva por llenar -->
-	<form>
-		<div class="row">
-			<div class="col"><label><h6>Domicilio</h6></label></div>
-			<div class="col"><label><h6>Número</h6></label></div>
-			<div class="col"></div>
-			<div class="col">
-				<a style="float: right;" class="btn btn-outline-secondary btn-lg"  title="Estudio socio economico" href="<?=base_url()?>index.php/Folios/realizarESE/<?=$id_adulto?>" role="button">Realizar ESE</a>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col">
+	<div class="collapse" id="collapseExample"> 
+	  	<center><b>INFORMACIÓN EXTRA ADULTO</b></center>
+		<hr>
+		<form>
+			<div class="row">
+				<div class="col"><label><h6>Domicilio</h6></label></div>
+				<div class="col"><label><h6>Número</h6></label></div>
+				<div class="col"></div>
 				<div class="col">
-					<input type="text" placeholder="Nombre de la calle" class="form-control"  name="inpt_domicilio" id="inpt_domicilio">
+					<a style="float: right;" class="btn btn-outline-secondary btn-lg"  title="Estudio socio economico" href="<?=base_url()?>index.php/Folios/realizarESE/<?=$id_adulto?>" role="button">Realizar ESE</a>
 				</div>
 			</div>
-			<div class="col">
-				<input type="text" class="form-control" style="width: 150px" placeholder="Número casa" name="inpt_numdomicilio" id="inpt_numdomicilio">
+			<div class="row">
+				<div class="col">
+					<div class="col">
+						<input type="text" placeholder="Nombre de la calle" class="form-control"  name="inpt_domicilio" id="inpt_domicilio">
+					</div>
+				</div>
+				<div class="col">
+					<input type="text" class="form-control" style="width: 150px" placeholder="Número casa" name="inpt_numdomicilio" id="inpt_numdomicilio">
+				</div>
+				<div class="col">
+					<button type ="button" id="btn_dir" onclick="conf();" class="btn btn-outline-primary" style="width: 200px">Buscar con maps</button>
+				</div>
+				<div class="col"></div>
+				
 			</div>
-			<div class="col">
-				<button type ="button" id="btn_dir" onclick="conf();" class="btn btn-outline-primary" style="width: 200px">Buscar con maps</button>
-			</div>
-			<div class="col"></div>
-			
-		</div>
 
 
 
-		<br>
-		<div class="row">
-			<div class="col">
-				<label><b>Observaciones</b></label>
-				<textarea class="form-control" rows="3"><?=$observaciones?></textarea>
+			<br>
+			<div class="row">
+				<div class="col">
+					<label><b>Observaciones</b></label>
+					<textarea class="form-control" rows="3"><?=$observaciones?></textarea>
+				</div>
+				<div class="col">
+					<label><b>Asunto</b></label>
+					<textarea rows="3"  id="inpt_asunto" class="form-control"></textarea>
+				</div>
 			</div>
-			<div class="col">
-				<label><b>Asunto</b></label>
-				<textarea rows="3"  id="inpt_asunto" class="form-control"></textarea>
-			</div>
-		</div>
 
-		<br>
-		<div class="row">
-			<div class="col">
-				<button  class="btn btn-outline-success" type="submit">Enviar</button>
-			
-				<button  class="btn btn-outline-danger" type="reset"  onclick="ocultar()">Cancelar</button>
+			<br>
+			<div class="row">
+				<div class="col">
+					<button  class="btn btn-outline-success" type="submit">Enviar</button>
+				
+					<button  class="btn btn-outline-danger" type="reset"  onclick="ocultar()">Cancelar</button>
+				</div>
 			</div>
-		</div>
-	</form>
-	
+		</form>
+	</div>
 
+<br>
+
+	<div class="collapse" id="collapseExample2"> 
+		<center><b>FOLIO(S)</b></center>
+		<hr>
+		<button type="button" style="float: right;" title="Agregar un nuevo folio" class="btn btn-outline-secondary" data-toggle="modal" data-target="#MODAL_FOLIOS" data-whatever="@mdo">Agregar +</button>
+
+		<br></br>
+		<!-- TABLA PARA INFO DE FAMILIAR -->
+		<table id="Consulta_expedientes" name="Consulta_expedientes" class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Folio</th>
+					<th>Servicio requerido</th>
+					<th>Fecha solicitud</th>
+					<th>Opciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+					if($datos_folios  != FALSE)
+					{
+						foreach ($datos_folios->result() as $row) {
+							echo '<tr>';
+								echo "<td>";
+									echo $row->Folio_adulto;
+									echo "-";
+									echo $row->A_registro;
+								echo '</td>';
+								echo "<td>";
+									echo $row->Nombre_servicio;
+								echo '</td>';
+								echo "<td>";
+									echo $row->fecha_comienzo;
+								echo '</td>';
+								echo '<td>';
+									 echo '<a href="'.base_url().'index.php/Folios/folio/'.$row->id_folio.'" title="Ver más información del Adulto" name="VerDetalles">Ver detalles</a>';
+									  
+								echo '</td>';
+							echo '</tr>';
+						}
+					}
+				?>
+			</tbody>
+		</table>	
+	</div>
+<br><br>
 
 <!-- MODAL PARA AGREGAR CONTACTO -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -383,7 +445,7 @@
 			</table>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
 	        <button type="button" data-dismiss="modal" style="float: right;" title="Agregar un nuevo usuario" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Agregar +</button>
 	      </div>
 	    </div>

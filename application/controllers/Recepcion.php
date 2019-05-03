@@ -43,6 +43,7 @@ class Recepcion extends CI_Controller {
 
 	}
 
+
 //---------------------------------------------------------------------
 			//VISTA PARA CONSULTAR ADULTOS
 //---------------------------------------------------------------------
@@ -69,6 +70,111 @@ class Recepcion extends CI_Controller {
 
 	}
 
+//---------------------------------------------------------------------
+			//VISTA PARA CARGAR PANTALLA PRESENCIAL
+//---------------------------------------------------------------------
+
+	public function presencial()
+	{
+		
+		if($this->session->userdata('logueado') == TRUE)
+		{
+			$id_usuario = $this->session->userdata('id_usuario');
+
+			$data = array(			 	
+			 	'tipos_servicios'   => $this->Recepcion_model->vertiposservicios(),
+			 	'categorias_repres' => $this->Recepcion_model->vercatrepres(),
+			 	'datos_usuario' => $this->Recepcion_model->verdatosusuario($id_usuario),
+			 );
+			$this->load->view('headers/header');
+			$this->load->view('headers/navbar');
+			$this->load->view('headers/logos_head1');
+			$this->load->view('recepcion/recepcion_presencial', $data);
+			$this->load->view('footers/footer');
+			$this->load->view('footers/logos_foot1');
+		}
+		else
+		{
+			redirect(base_url());
+		}
+
+	}
+
+	public function busqueda_existente()
+	{
+		$Nombre_Adulto = $this->uri->segment(3);
+		$Edad = $this->uri->segment(4);
+
+		$datos_adultos = $this->Recepcion_model->buscar($Nombre_Adulto,$Edad);
+		
+		?>
+			<table id="Consulta_adU" name="Consulta_adU"" class="display table table-striped">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Teléfono</th>
+						<th>Edad</th>
+						<th>Dirección</th>
+						<th>Opciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+						if($datos_adultos  != FALSE)
+						{
+							foreach ($datos_adultos->result() as $row) {
+								echo '<tr>';
+									echo "<td>";
+										echo $row->Nombre_Adulto;
+									echo '</td>';
+									echo "<td>";
+										echo $row->Telefono;
+									echo '</td>';
+									echo "<td>";
+										echo $row->Edad;
+									echo '</td>';
+									echo "<td>";
+										echo $row->Direccion;
+									echo "</td>";
+									echo '<td>';
+										echo '<input type="radio" id="radiobusqueda" onchange="showdiv()" value="'.$row->id_adulto.'" name="radiobusqueda">';
+										
+										//echo '<a href="'.base_url().'index.php/Recepcion/info_adultos/'.$row->id_adulto.'" title="Ver más información del Adulto" name="VerDetalles">Seleccionar</a>';
+									echo '</td>';
+								echo '</tr>';
+							}
+						}
+					?>
+				</tbody>
+			</table>
+		<?php
+	}
+
+//---------------------------------------------------------------------
+			//VISTA PARA CARGAR PANTALLA TELEFONICA
+//---------------------------------------------------------------------
+
+	public function telefonico()
+	{
+		
+		if($this->session->userdata('logueado') == TRUE)
+		{
+			$data = array(			 	
+			 	'datos_adultos' =>$this->Recepcion_model->veradultos(),
+			 );
+			$this->load->view('headers/header');
+			$this->load->view('headers/navbar');
+			$this->load->view('headers/logos_head1');
+			$this->load->view('recepcion/recepcion_telefonico', $data);
+			$this->load->view('footers/footer');
+			$this->load->view('footers/logos_foot1');
+		}
+		else
+		{
+			redirect(base_url());
+		}
+
+	}
 
 //---------------------------------------------------------------------
 			//VISTA PARA CONSULTAR DATOS ADULTOS
@@ -123,32 +229,6 @@ class Recepcion extends CI_Controller {
 			redirect(base_url());
 		}
 	}
-
-
-//---------------------------------------------------------------------
-			//VISTA PARA CITAS
-//---------------------------------------------------------------------
-
-	public function citas()
-	{
-		
-		if($this->session->userdata('logueado') == TRUE)
-		{
-			/*$data = array(			 	
-			 	'tipos_servicios' =>$this->Recepcion_model->vertiposservicios(),
-			 );*/
-			$this->load->view('headers/header');
-			$this->load->view('headers/navbar');
-			$this->load->view('recepcion/citas');
-			$this->load->view('footers/footer');
-		}
-		else
-		{
-			redirect(base_url());
-		}
-
-	}
-
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------

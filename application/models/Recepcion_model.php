@@ -132,11 +132,15 @@ class Recepcion_model extends CI_Model {
         }
     }
 
+
+
 //---------------------------------------------------------------------
 //---------------------------------------------------------------------
                 //METODOS PARA CONSULTA ADULTOS
 //---------------------------------------------------------------------
 //---------------------------------------------------------------------
+
+
 
 //----------------------------------------------------------------------   
     //VER ADULTOS REGISTRADOS
@@ -239,11 +243,12 @@ class Recepcion_model extends CI_Model {
 //----------------------------------------------------------------------   
     //BUSQUEDA DE ADULTO
 //----------------------------------------------------------------------
-    public function set_busqueda($Nombre_Adulto)
+    public function buscar($Nombre_Adulto, $Edad)
     {
-        $this->db->select('id_adulto,  Nombre_Adulto, Telefono');
+        $this->db->select('id_adulto,  Nombre_Adulto, Telefono, Direccion, Sexo, Edad');
         $this->db->from('CAT_ADULTOS');
         $this->db->like('Nombre_Adulto', $Nombre_Adulto);
+        $this->db->like('Edad', $Edad);
         
 
         $query = $this->db->get();

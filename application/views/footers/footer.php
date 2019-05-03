@@ -12,7 +12,26 @@
 
 	<script type="text/javascript" src="<?=base_url()?>js/jquery.dataTables.min.js"></script>
 
+	<script type="text/javascript">
+		var cargar_ajax = {
 
+        	run_server_ajax: function(_url, _data = null){
+	        	var json_result = $.ajax({
+	            url: '<?= base_url(); ?>' + _url,
+	            dataType: "json",
+	            method: "post",
+	            async: false,
+	            type: 'post',
+	            data: _data, 
+	            done: function(response) {
+	                return response;
+	            }
+	        	}).responseJSON;
+	        
+		       	return json_result;
+		    }
+        }
+	</script>
 	
 	
 </html>
