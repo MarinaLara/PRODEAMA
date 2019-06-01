@@ -16,6 +16,7 @@
 				<div class="form-group">
 					<button class="btn btn-outline-success" type="submit">Enviar</button>
 					<button class="btn btn-outline-danger" type="reset">Cancelar</button>
+					<a href="<?=base_url()?>index.php/Main/recordarContrasena" style="color:#047BD8;margin-left: 40%;">Olvide mi contraseña...</a>
 				</div>
 			</form>
 		</div>

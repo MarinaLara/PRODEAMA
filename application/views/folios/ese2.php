@@ -73,39 +73,6 @@
 		</div>
 		<hr>
 
-	<div class="tab">
-		<label><b>2.-DATOS DE IDENTIFICACIÓN DOMICILIARIA</b></label>
-		<div class="row">
-			<div class="col">
-				<label><b>Domicilio</b></label>
-				<input type="text" class="form-control" value=" " name="domicilo" id="domicilo">
-			</div>
-		</div>
-		<div class="row">
-			<div class="col">
-				<label><b>Referencia</b></label>
-				<input type="text" class="form-control" value=" " name="referencia" id="referencia">
-			</div>
-			<div class="col">
-				<label><b>Telefono</b></label>
-				<input type="text" disabled="" value="3434343" class="form-control" name="Telefono" id="Telefono">
-			</div>
-		</div>
-		<br>
-	</div>
-
-	<div style="overflow:auto;">
-	  		<div style="float:right;">
-		   		<button class="btn btn-outline-success" type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
-	    		<button class="btn btn-outline-success" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-	  		</div>
-		</div>
-<!-- Circles which indicates the steps of the form: -->
-		<div style="text-align:center;margin-top:40px;">
-	  		<span class="step"></span>
-	  		<span class="step"></span>
-		</div>
-
 </div>
 
 <script type="text/javascript">

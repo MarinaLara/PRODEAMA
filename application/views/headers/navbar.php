@@ -7,11 +7,14 @@
 
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <span class="nav-item">
-                <a class="nav-link active" href="#">Bienvenid@: <?=$this->session->userdata('user')?> </a>
+                <a class="nav-link active" href="#">Bienvenid@: <?=$this->session->userdata('name')?> </a>
         </span>
     <ul class="navbar-nav">
       <li class="nav-item active">
         <a class="nav-link" href="<?=base_url()?>index.php/Main">Inicio <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?=base_url()?>index.php/Servicios">Servicios <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -31,9 +34,11 @@
         <a class="nav-link" href="<?=base_url()?>index.php/Recepcion/presencial">Presencial<span class="sr-only">(current)</span></a>
       </li> 
       <li class="nav-item">
-        <a class="nav-link" href="<?=base_url()?>index.php/Recepcion/telefonico">Telefónica<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="<?=base_url()?>index.php/Recepcion">Recepción<span class="sr-only">(current)</span></a>
       </li> 
-
+      <li class="nav-item">
+        <a class="nav-link" href="<?=base_url()?>index.php/Trab_social/Turnos">Turnos <span class="sr-only">(current)</span></a>
+      </li> 
       <li class="nav-item">
         <a class="nav-link" href="<?=base_url()?>index.php/Trab_social">TS <span class="sr-only">(current)</span></a>
       </li>    

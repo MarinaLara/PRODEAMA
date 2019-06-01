@@ -253,7 +253,8 @@
 				<div class="col"><label><h6>Número</h6></label></div>
 				<div class="col"></div>
 				<div class="col">
-					<a style="float: right;" class="btn btn-outline-secondary btn-lg"  title="Estudio socio economico" href="<?=base_url()?>index.php/Folios/realizarESE/<?=$id_adulto?>" role="button">Realizar ESE</a>
+					<!--<a style="float: right;" class="btn btn-outline-secondary btn-lg"  title="Estudio socio economico" href="<?=base_url()?>index.php/Folios/realizarESE/<?=$id_adulto?>" role="button">Realizar ESE</a>-->
+					<a style="float: right;" class="btn btn-outline-secondary btn-lg"  title="Estudio socio economico" role="button">Realizar ESE</a>
 				</div>
 			</div>
 			<div class="row">
@@ -275,7 +276,7 @@
 
 
 			<br>
-			<div class="row">
+			<!--<div class="row">
 				<div class="col">
 					<label><b>Observaciones</b></label>
 					<textarea class="form-control" rows="3"><?=$observaciones?></textarea>
@@ -284,7 +285,7 @@
 					<label><b>Asunto</b></label>
 					<textarea rows="3"  id="inpt_asunto" class="form-control"></textarea>
 				</div>
-			</div>
+			</div>-->
 
 			<br>
 			<div class="row">
@@ -344,6 +345,74 @@
 		</table>	
 	</div>
 <br><br>
+
+<!-- MODAL PARA AGREGAR FOLIO -->
+	<div class="modal fade" id="MODAL_FOLIOS" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo folio</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          	<div class="modal-body">
+	            <div class="row">
+					<div class="col-md-12" style="margin-top: 2%">
+						
+						<form action="<?=base_url()?>index.php/Recepcion/fun_nuevo_repre/<?=$id_adulto?>" onsubmit="return confirm('¿Realmente seguro de que los datos están correctos?                          No se podrán editar tan fácil');"  method="post">
+							<div class="form-group">
+							
+								<label><b>Tipo de servicio solicitado</b></label>
+								<select class="custom-select" title="Tipo de servicio solicitado" id="select_tipo_servicio" style="width:250px;height:40px" name="select_tipo_servicio">
+									<option value=""> Seleccione el tipo de servicio</option>
+									<?php
+				                        if($tipos_servicios != FALSE)
+				                        {
+				                            foreach ($tipos_servicios->result() as $row) 
+				                            {
+				                                echo '<option value="'.$row->id_tipo_servicio.'">';
+				                                    echo $row->Nombre_servicio;
+				                                echo '</option>';
+				                        
+				                            } 
+				                        }                                    
+				                    ?>
+								</select>
+								<br>
+								<label><b>Telefono usuario</b></label>
+									<input type="text"  pattern="\([0-9]{3}\) [0-9]{3}[ -][0-9]{4}"  title="Un número de teléfono válido consiste en un área de código de 3 dígitos entre paréntesis, un espacio, los tres primeros dígitos del número, un espacio o guion (-) y cuatro dígitos más" placeholder="(Código de área) 000-0000" maxlength="14" class="form-control" id="Telefono_repre" name="Telefono_repre">
+								<br>
+									<label><b>Seleccione el tipo de acompañante</b></label>
+									<br>
+										<select class="custom-select" title="Tipo de acompañante/representante" id="select_tipo_representante" name="select_tipo_representante">
+											<option value="">Tipo de acompañante</option>
+											<?php
+					                        if($categorias_repres != FALSE)
+					                        {
+					                            foreach ($categorias_repres->result() as $row) 
+					                            {
+					                                echo '<option value="'.$row->id_categoria_repres.'">';
+					                                    echo $row->Nombre_categoria;
+					                                echo '</option>';
+					                        
+					                            } 
+					                        }                                    
+					                    ?>
+										</select>
+
+								<br></br>
+								<button class="btn btn-outline-success"  type="submit">Enviar</button>
+								<button class="btn btn-outline-danger" title="Borra todos los datos de esta ventana" type="reset">Cancelar</button>
+							</div>
+						</form>
+
+					</div>
+				</div>
+          	</div>
+        </div>
+      </div>
+    </div>
 
 <!-- MODAL PARA AGREGAR CONTACTO -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

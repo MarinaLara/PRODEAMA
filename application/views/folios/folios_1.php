@@ -23,10 +23,10 @@
 		<h3><b>FOLIO:</b></h3>
 	</center>
 	
-	<a class="btn btn-outline-secondary btn-lg" style="float: right;" title="Estudio socio economico" href="<?=base_url()?>index.php/Folios/realizarESE" role="button">Realizar ESE</a>
+	<!--<a class="btn btn-outline-secondary btn-lg" style="float: right;" title="Estudio socio economico" href="<?=base_url()?>index.php/Folios/realizarESE" role="button">Realizar ESE</a>-->
 	<center>
 		<label style="color: rgb(199, 0, 57);">
-			<h3>&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;  &nbsp;&nbsp; &nbsp;<?= $Folio_adulto?> - <?= $A_registro?></h3>
+			<h3><!--&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;  &nbsp;&nbsp; &nbsp;--><?= $Folio_adulto?> - <?= $A_registro?></h3>
 		</label>
 	</center>
 	

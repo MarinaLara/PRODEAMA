@@ -154,7 +154,7 @@
 		$('#select_vez').change(function(){
 			$("#select_vez option:selected").each(function()
 			{
-				document.getElementById("lbl_quien").style.display = '';
+				document.getElementById("div_quien").style.display = '';
 				document.getElementById("div_selquien").style.display = '';
 			});
 
@@ -163,7 +163,16 @@
 				//Despliega modal de busqueda
 				$('#exampleModal').modal('show');
 			}
-		});
+		}); 
+
+		//select_dequetipo		1
+		$('#select_dequetipo').change(function(){
+			$("#select_dequetipo option:selected").each(function()
+			{
+				document.getElementById("div_vez").style.display = '';
+				document.getElementById("div_selvez").style.display = '';//AQUI
+			});
+		}); 
 
 		$('#select_quienpresenta').change(function(){
 	        if($(this).val() == "Otro")
@@ -283,34 +292,44 @@
 	<form onsubmit="return confirm('¿Realmente seguro de que los datos están correctos?                          No se podrán editar tan fácil');" action="<?=base_url()?>index.php/Recepcion/agregar_adulto" method="post">
 		<div class="row">
 			<div class="col">
-				<label style="float: left;"><h6>Fecha y hora entrada</h6></label>				
+				<label style="width:250px;"><h6>Fecha y hora entrada</h6></label>		
 			</div>
-			<div id="div_quien" class="col">
-				<center><label id="lbl_quien" style="display: none;"><h6>¿Quién presenta la denuncia?</h6></label></center>
+			<div id="div_quien" class="col" style="display: none;">
+				<label id="lbl_quien" style="width:250px;"><h6>¿Quién presenta la denuncia?</h6></label>
 			</div>
-			<div class="col" id="div_vez">
-				<label style="margin-left: 100px;"><h6>Tipo de registro</h6></label>
+			<div class="col" style="display: none;" id="div_vez">
+				<label style="width:250px;"><h6>Tipo de registro</h6></label>
+			</div>
+			<div class="col" id="div_tipodenuncia1">
+				<label id="lbl_tipodenuncia1" style="width:250px;"><h6>Tipo de denuncia</h6></label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col">
-				<input readonly type="text" style="width: 235px; height:40px; float: left;" class="form-control" name="fecha_registro" id="fecha_registro" value="<?php date_default_timezone_set('America/Los_Angeles');
+				<input readonly type="text" style="width: 250px; height:40px; " class="form-control" name="fecha_registro" id="fecha_registro" value="<?php date_default_timezone_set('America/Los_Angeles');
 					$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"); 
 					echo date('d')."/".$meses[date('n')-1]. "/".date('Y h:i:s A') ;		 			 
 					?>">
 			</div>
 			<div id="div_selquien" class="col" style="display: none;">
-				<center><select style="width:250px;" name="select_quienpresenta" id="select_quienpresenta" class="form-control">
+				<select style="width:250px;" name="select_quienpresenta" id="select_quienpresenta" class="form-control">
 					<option value="">Seleccione una opción</option>
 					<option value="AM">Adulto mayor</option>
 					<option value="Otro">Otro</option>
-				</select></center>
+				</select>
 			</div>
-			<div class="col" id="div_selvez">
-				<select class="form-control" id="select_vez" style="width: 250px; float: right">
+			<div class="col" id="div_selvez" style="display: none;">
+				<select class="form-control" id="select_vez" style="width: 250px;">
 					<option value="">Seleccione una opción</option>
 					<option value="PRIM">Primera vez</option>
 					<option value="SEG">Ya existente</option>
+				</select>
+			</div>
+			<div class="col" id="div_dequetipo">
+				<select style="width:250px;"  name="select_dequetipo" id="select_dequetipo" class="form-control">
+					<option value="Sel">Seleccione una opción</option>
+					<option value="Pre">Presencial</option>
+					<option value="Tel">Telefónica</option>
 				</select>
 			</div>
 		</div>

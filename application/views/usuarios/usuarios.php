@@ -5,7 +5,7 @@
 	  $('[data-toggle="popover"]').popover()
 	})
 
-	$("#usuario").mask('ZZ',{translation:  {'Z': {pattern: /[áéíóúñüàèa-zA-Z\s]/, recursive: true}}});
+	//$("#usuario").mask('ZZ',{translation:  {'Z': {pattern: /[áéíóúñüàèa-zA-Z\s]/, recursive: true}}});
 	$("#nombre").mask('ZZ',{translation:  {'Z': {pattern: /[áéíóúñüàèa-zA-Z\s]/, recursive: true}}});
 
 </script>
@@ -31,11 +31,11 @@
 						<form onsubmit="return confirm('¿Realmente seguro de que los datos están correctos?                          No se podrán editar tan fácil');" action="<?=base_url()?>index.php/usuarios/agregar_usuarios" method="post">
 							<div class="form-group">
 								<label><b>Usuario:</b></label> 
-									<button data-toggle="popover" style="float: right; margin-bottom: 3%" title="Información" data-content="Nombre que tendra su cuenta." type="button" class="btn btn-outline-info">?</button>
-								<input type="text" class="form-control" name="usuario" id="usuario" placeholder="Escriba su usuario" maxlength="15" required="">
+									<button data-toggle="popover" style="float: right; margin-bottom: 3%" title="Información" data-content="Ingresar correo electronico con el que se ingresará al sistema, debe ser un correo valido." type="button" class="btn btn-outline-info">?</button>
+								<input type="email" class="form-control" id=usuario name="usuario" placeholder="Correo electronico" maxlength="150" required="">
 							<br>
 								<label><b>Nombre:</b></label>
-								<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Escriba su nombre" maxlength="50" required="">
+								<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Escriba su nombre y apellidos" maxlength="50" minlength="5" required="">
 							<br>
 								<label><b>Contraseña:</b></label>
 								<input type="password" class="form-control" name="contraseña" id="contraseña" placeholder="Escriba su contraseña" maxlength="15" required="">

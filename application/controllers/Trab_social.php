@@ -40,5 +40,29 @@ class Trab_social extends CI_Controller {
 
 	}
 
+	public function Turnos()
+	{
+		if($this->session->userdata('logueado') == TRUE)
+		{
+			$data = array(
+				'datos_turno' => $this->Trab_social_model->verturnos(),
+			);
+
+			$this->load->view('headers/header');
+			$this->load->view('headers/navbar');
+			$this->load->view('headers/logos_head1');		
+			
+			$this->load->view('trabsocial/turnos', $data);			
+			
+			$this->load->view('footers/footer');
+			$this->load->view('footers/logos_foot1');
+
+		}
+		else
+		{
+			redirect(base_url());
+		}
+	}
+
 }
 ?>

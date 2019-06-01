@@ -8,6 +8,29 @@ class Trab_social_model extends CI_Model {
         // Call the Model constructor
         parent::__construct();
     }
+
+    //----------------------------------------------------------------------   
+    //VER FOLIOS POR ADULTO
+//----------------------------------------------------------------------
+
+    public function verturnos()
+    {
+
+
+        $query = $this->db->get();
+
+
+
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        }
+
+    }
 }
 
 ?>
