@@ -108,7 +108,7 @@ class Recepcion extends CI_Controller {
 		$datos_adultos = $this->Recepcion_model->buscar($Nombre_Adulto,$Edad);
 		
 		?>
-			<table id="Consulta_adU" name="Consulta_adU"" class="display table table-striped">
+			<table id="Consulta_adU" name="Consulta_adU" class="display table table-striped">
 				<thead>
 					<tr>
 						<th>Nombre</th>
@@ -151,32 +151,6 @@ class Recepcion extends CI_Controller {
 	}
 
 //---------------------------------------------------------------------
-			//VISTA PARA CARGAR PANTALLA TELEFONICA
-//---------------------------------------------------------------------
-
-	public function telefonico()
-	{
-		
-		if($this->session->userdata('logueado') == TRUE)
-		{
-			$data = array(			 	
-			 	'datos_adultos' =>$this->Recepcion_model->veradultos(),
-			 );
-			$this->load->view('headers/header');
-			$this->load->view('headers/navbar');
-			$this->load->view('headers/logos_head1');
-			$this->load->view('recepcion/recepcion_telefonico', $data);
-			$this->load->view('footers/footer');
-			$this->load->view('footers/logos_foot1');
-		}
-		else
-		{
-			redirect(base_url());
-		}
-
-	}
-
-//---------------------------------------------------------------------
 			//VISTA PARA CONSULTAR DATOS ADULTOS
 //---------------------------------------------------------------------
 
@@ -188,6 +162,8 @@ class Recepcion extends CI_Controller {
 			$id_adulto = $this->uri->segment(3);
 			$data = array(			 	
 			 	'datos_adultos' =>$this->Recepcion_model->get_adu($id_adulto),
+			 	'datos_archivos'=>$this->Recepcion_model->get_archivos(),
+
 			 	'datos_familia' =>$this->Recepcion_model->get_fam($id_adulto),
 			 	'categorias_repres' => $this->Recepcion_model->vercatrepres(),
 			 	'datos_folios' => $this->Recepcion_model->verfolios($id_adulto),

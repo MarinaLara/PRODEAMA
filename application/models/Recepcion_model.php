@@ -110,6 +110,23 @@ class Recepcion_model extends CI_Model {
         $this->db->insert('CAT_REPRESENTANTES',$data);
     }
 
+    public function get_archivos()
+    {
+        
+        $this->db->from('archivos');
+        $this->db->where('activo',1);
+        
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
 //----------------------------------------------------------------------   
     //RECUPERA EL ULTIMO FOLIO REGISTRADO ORDENADO POR AÑO-FOLIO
 //----------------------------------------------------------------------

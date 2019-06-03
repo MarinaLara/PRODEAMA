@@ -1,6 +1,10 @@
+<!--	THIS	-->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.13/jquery.mask.min.js"></script>
+<script type="text/javascript" src="<?=base_url()?>js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?=base_url()?>js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
 <script type="text/javascript">
 	
@@ -8,6 +12,37 @@
 	$("#inpt_domicilio").mask('ZZ',{translation:  {'Z': {pattern: /[áéíóúñüàèa-zA-Z\s]/, recursive: true}}});
 	$("#inpt_numdomicilio").mask('ZZ',{translation:  {'Z': {pattern: /[0-9\s]/, recursive: true}}});
 
+	//Datatable sencilla que permite encabezados con rowspan
+     $(document).ready(function() {
+         $('#Consulta_adU').DataTable({
+             "dom": 'T<"clear">lfrtip',
+             "tableTools": {
+                 "sRowSelect": "multi",
+                 "aButtons": [
+                     {
+                         "sExtends": "select_none",
+                         "sButtonText": "Borrar selección"
+                     }]
+             },
+             "pagingType": "simple_numbers",
+			//Actualizo las etiquetas de mi tabla para mostrarlas en español
+             "language": {
+                 "lengthMenu": "Mostrar _MENU_ registros por página.",
+                 "zeroRecords": "No se encontró registro.",
+                 "info": "  _START_ de _END_ (_TOTAL_ registros totales).",
+                 "infoEmpty": "0 de 0 de 0 registros",
+                 "infoFiltered": "(Encontrado de _MAX_ registros)",
+                 "search": "Buscar: ",
+                 "processing": "Procesando la información",
+                 "paginate": {
+                     "first": " |< ",
+                     "previous": "Ant.",
+                     "next": "Sig.",
+                     "last": " >| "
+                 }
+             }
+         });
+     } );
 	
 	//muestra los campos a editar pero los deshabilita para seleccionar el que se desee modificar
 	function hab() 
@@ -236,7 +271,7 @@
 			<button class="btn btn-secondary btn-lg" style="width: 200px" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Otros</button>
 		</td>
 			<td>&nbsp; &nbsp;</td>
-		<td><button class="btn btn-success btn-lg" style="width: 250px" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">Folios</button>
+		<td><button class="btn btn-success btn-lg" style="width: 250px" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">Archivos</button>
 			
 			
 		</td>
@@ -301,16 +336,16 @@
 <br>
 
 	<div class="collapse" id="collapseExample2"> 
-		<center><b>FOLIO(S)</b></center>
+		<center><b>Archivos</b></center>
 		<hr>
 		<button type="button" style="float: right;" title="Agregar un nuevo folio" class="btn btn-outline-secondary" data-toggle="modal" data-target="#MODAL_FOLIOS" data-whatever="@mdo">Agregar +</button>
 
 		<br></br>
-		<!-- TABLA PARA INFO DE FAMILIAR -->
-		<table id="Consulta_expedientes" name="Consulta_expedientes" class="table table-bordered">
+		<!-- TABLA PARA VER ARCHIVOS -->
+		<!--<table id="Consulta_expedientes" name="Consulta_expedientes" class="table table-bordered">
 			<thead>
 				<tr>
-					<th>Folio</th>
+					<th>Archivo</th>
 					<th>Servicio requerido</th>
 					<th>Fecha solicitud</th>
 					<th>Opciones</th>
@@ -342,16 +377,44 @@
 					}
 				?>
 			</tbody>
+		</table>-->
+		<table id="Consulta_archivos" name="Consulta_archivos" style="width:100%" class="display table table-striped">
+			<thead>
+				<tr>
+					<th>Archivo</th>
+					<th>Nombre</th>
+					<!--<th>Tipo</th>
+					<th>Fecha</th>-->
+					<th>Opciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php if($datos_archivos != FALSE) {
+					foreach ($datos_archivos->result() as $row) {
+				?>
+					<tr id="tr_<?= $row->id_archivo;?>" name="tr_<?= $row->id_archivo; ?>" >
+						<td>
+							<center><?= $row->id_archivo;?></center>
+						</td>
+						<td>
+							<a href="<?=base_url().$row->path?>" target="_blanck"><?= $row->nombre_archivo;?></a>
+						</td>
+						<td></td>
+					</tr>
+				<?php
+					}
+				} ?>
+			</tbody>
 		</table>	
 	</div>
 <br><br>
 
-<!-- MODAL PARA AGREGAR FOLIO -->
+<!-- MODAL PARA AGREGAR ARCHIVOS -->
 	<div class="modal fade" id="MODAL_FOLIOS" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo folio</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo archivo</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -360,10 +423,15 @@
 	            <div class="row">
 					<div class="col-md-12" style="margin-top: 2%">
 						
-						<form action="<?=base_url()?>index.php/Recepcion/fun_nuevo_repre/<?=$id_adulto?>" onsubmit="return confirm('¿Realmente seguro de que los datos están correctos?                          No se podrán editar tan fácil');"  method="post">
+						<form action="<?=base_url()?>index.php/archivos/crear_archivo" onsubmit="return confirm('¿Realmente seguro de que los datos están correctos?                          No se podrán editar tan fácil');"  method="post" enctype="multipart/form-data">
 							<div class="form-group">
-							
-								<label><b>Tipo de servicio solicitado</b></label>
+								<label><b>Nombre de archivo</b></label>
+								<input type="text" id="nombre_archivo" name="nombre_archivo" class="form-control">
+								<br>
+								<label>Seleccionar Archivo</label>
+				 				<input type="file" class="form-control" id="archivo" name="archivo" name="uploadedfile" required="true" >
+				 				<!--<br>
+				 				<label><b>Tipo de servicio solicitado</b></label>
 								<select class="custom-select" title="Tipo de servicio solicitado" id="select_tipo_servicio" style="width:250px;height:40px" name="select_tipo_servicio">
 									<option value=""> Seleccione el tipo de servicio</option>
 									<?php
@@ -378,28 +446,7 @@
 				                            } 
 				                        }                                    
 				                    ?>
-								</select>
-								<br>
-								<label><b>Telefono usuario</b></label>
-									<input type="text"  pattern="\([0-9]{3}\) [0-9]{3}[ -][0-9]{4}"  title="Un número de teléfono válido consiste en un área de código de 3 dígitos entre paréntesis, un espacio, los tres primeros dígitos del número, un espacio o guion (-) y cuatro dígitos más" placeholder="(Código de área) 000-0000" maxlength="14" class="form-control" id="Telefono_repre" name="Telefono_repre">
-								<br>
-									<label><b>Seleccione el tipo de acompañante</b></label>
-									<br>
-										<select class="custom-select" title="Tipo de acompañante/representante" id="select_tipo_representante" name="select_tipo_representante">
-											<option value="">Tipo de acompañante</option>
-											<?php
-					                        if($categorias_repres != FALSE)
-					                        {
-					                            foreach ($categorias_repres->result() as $row) 
-					                            {
-					                                echo '<option value="'.$row->id_categoria_repres.'">';
-					                                    echo $row->Nombre_categoria;
-					                                echo '</option>';
-					                        
-					                            } 
-					                        }                                    
-					                    ?>
-										</select>
+								</select>-->
 
 								<br></br>
 								<button class="btn btn-outline-success"  type="submit">Enviar</button>

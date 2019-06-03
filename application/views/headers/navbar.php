@@ -31,10 +31,7 @@
       </li> 
 
       <li class="nav-item">
-        <a class="nav-link" href="<?=base_url()?>index.php/Recepcion/presencial">Presencial<span class="sr-only">(current)</span></a>
-      </li> 
-      <li class="nav-item">
-        <a class="nav-link" href="<?=base_url()?>index.php/Recepcion">Recepción<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="<?=base_url()?>index.php/Recepcion/presencial">Recepción<span class="sr-only">(current)</span></a>
       </li> 
       <li class="nav-item">
         <a class="nav-link" href="<?=base_url()?>index.php/Trab_social/Turnos">Turnos <span class="sr-only">(current)</span></a>

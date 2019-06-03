@@ -1,3 +1,4 @@
+<!-- THIS-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.13/jquery.mask.min.js"></script>
 
@@ -152,16 +153,20 @@
 		//Muestra el select de quien presenta la denuncia, esto es para que seleccione una opcion a fuerzas y poder desplegar o no
 		//la opcion de busqueda en caso de que el adulto ya exista en el sistema
 		$('#select_vez').change(function(){
-			$("#select_vez option:selected").each(function()
+			/*$("#select_vez option:selected").each(function()
 			{
 				document.getElementById("div_quien").style.display = '';
 				document.getElementById("div_selquien").style.display = '';
-			});
+			});*/
 
 			if ($(this).val() == "SEG") 
 			{
 				//Despliega modal de busqueda
 				$('#exampleModal').modal('show');
+			}else
+			{
+				document.getElementById("div_quien").style.display = '';
+				document.getElementById("div_selquien").style.display = '';
 			}
 		}); 
 
@@ -170,7 +175,21 @@
 			$("#select_dequetipo option:selected").each(function()
 			{
 				document.getElementById("div_vez").style.display = '';
-				document.getElementById("div_selvez").style.display = '';//AQUI
+				document.getElementById("div_selvez").style.display = '';
+
+				var vartipoTEL;
+
+				if ($(this).val() == "Tel") 
+				{
+					vartipoTEL = 2;
+					alert(vartipoTEL);
+					//0 = POR ATENDER, PRESENCIAL
+					//1 = ATENDIDO
+					//2 = TELEFONICO, PRIORIDAD, POR ATENDER
+				}else
+				{
+					vartipoTEL = 0;
+				}
 			});
 		}); 
 
@@ -557,25 +576,6 @@
 			            <br>
 			            <div class="row" id="div_opciones_busqueda" style="display: none;">
 							<div class="col">
-								<label><b>Tipo de servicio solicitado</b></label>
-								<br>
-								<select class="custom-select" title="Tipo de servicio solicitado" id="select_tipo_servicio_busqueda" style="width:250px;height:40px" name="select_tipo_servicio_busqueda">
-									<option value=""> Seleccione el tipo de servicio</option>
-									<?php
-				                        if($tipos_servicios != FALSE)
-				                        {
-				                            foreach ($tipos_servicios->result() as $row) 
-				                            {
-				                                echo '<option value="'.$row->id_tipo_servicio.'">';
-				                                    echo $row->Nombre_servicio;
-				                                echo '</option>';
-				                        
-				                            } 
-				                        }                                    
-				                    ?>
-								</select>
-							</div>
-							<div class="col">
 								<label><b>¿Quién presenta la denuncia?</b></label>
 								<br>
 								<select style="width:250px;" name="select_quienpresenta_busqueda" id="select_quienpresenta_busqueda" class="form-control">
@@ -585,7 +585,7 @@
 								</select>
 							</div>
 							<div class="col">
-								<button class="btn btn-outline-success" style="margin-top: 15%;" type="submit">Enviar</button>
+								<button class="btn btn-outline-success" style="margin-top: 8%; width: 250px;" type="submit">Enviar</button>
 							</div>
 						</div>
 
