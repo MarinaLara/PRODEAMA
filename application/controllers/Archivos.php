@@ -33,11 +33,17 @@ class Archivos extends CI_Controller {
 
 	public function crear_archivo()
 	{
-		
+		$id_usuario = $this->session->userdata('id_usuario');
+
 		//OBTENERE EL ID DE ARCHIVO 
 		$nombre_archivo = $this->input->post('nombre_archivo');
 		$data = array(
 			'nombre_archivo' => $nombre_archivo,
+			'id_usuario' => $id_usuario,
+			'id_adulto' => $id_adulto,
+			'fecha' =>  $this->input->post('fecha_subida', TRUE),
+			'id_adulto' => $this->input->post('id_adulto', TRUE),
+			'id_tipo_servicio' => $this->input->post('select_tipo_servicio', TRUE),
 			'activo' => 1,	
 		);
 		$this->Archivos_model->insert_archivos($data);	
@@ -47,12 +53,7 @@ class Archivos extends CI_Controller {
 			foreach ($DATA_ID->result() as $row) 
 			{
 				$id_archivo = $row->id_archivo;
-				$update_clientete_filename = $row->id_archivo + 1;
 			}
-		}else
-		{
-			
-			$update_filename = 1;
 		}
 
 
@@ -62,7 +63,7 @@ class Archivos extends CI_Controller {
         $config['max_size'] = 2000;
         //$config['max_width'] = 1500;
         //$config['max_height'] = 1500;
-        $config['file_name'] = $update_filename;
+        $config['file_name'] = $id_archivo;
         $this->load->library('upload', $config);
 
         if ($this->upload->do_upload('archivo')) {

@@ -6,7 +6,6 @@
 <script type="text/javascript" src="<?=base_url()?>js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?=base_url()?>js/dataTables.bootstrap.min.js"></script>
 
-
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
 
