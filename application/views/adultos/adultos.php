@@ -170,7 +170,7 @@
 			$Telefono = $row->Telefono;
 			$Edad = $row->Edad;
 			$Sexo = $row->Sexo;
-			$observaciones = $row->observaciones;
+			
 			
 		}
 	}
@@ -280,7 +280,7 @@
 	<div class="collapse" id="collapseExample"> 
 	  	<center><b>INFORMACIÓN EXTRA ADULTO</b></center>
 		<hr>
-		<form>
+		<form onsubmit="return confirm('¿Realmente seguro de que los datos están correctos?                          No se podrán editar tan fácil');" action="<?=base_url()?>index.php/folios/modificar_adulto/<?=$id_adulto?>/0" method="post">
 			<div class="row">
 				<div class="col"><label><h6>Domicilio</h6></label></div>
 				<div class="col"><label><h6>Número</h6></label></div>
@@ -305,20 +305,6 @@
 				<div class="col"></div>
 				
 			</div>
-
-
-
-			<br>
-			<!--<div class="row">
-				<div class="col">
-					<label><b>Observaciones</b></label>
-					<textarea class="form-control" rows="3"><?=$observaciones?></textarea>
-				</div>
-				<div class="col">
-					<label><b>Asunto</b></label>
-					<textarea rows="3"  id="inpt_asunto" class="form-control"></textarea>
-				</div>
-			</div>-->
 
 			<br>
 			<div class="row">
@@ -550,7 +536,7 @@
 	                <span aria-hidden="true">&times;</span>
 	            </button>
 	        </div>
-	        <form onsubmit="return confirm('¿Realmente seguro de que los datos están correctos?                          No se podrán editar tan fácil');" action="<?=base_url()?>index.php/Folios/modificar_adulto/<?=$id_adulto?>" method="post">
+	        <form onsubmit="return confirm('¿Realmente seguro de que los datos están correctos?                          No se podrán editar tan fácil');" action="<?=base_url()?>index.php/Folios/modificar_adulto/<?=$id_adulto?>/1" method="post">
 				<div class="modal-body">
 					<div class="row">
 						<div class="col">

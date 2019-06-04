@@ -132,18 +132,35 @@ class Folios extends CI_Controller {
 	public function modificar_adulto(){
 		
 		$id_adulto = $this->uri->segment(3);
-		
-		$data = array(
-			'Nombre_Adulto' => $this->input->post('editNombre_Adulto',TRUE),
-			'Sexo' => $this->input->post('editSexo',TRUE),
-			'Telefono' => $this->input->post('editTelefono', TRUE),
-			'Edad' => $this->input->post('editEdad', TRUE),
-		);
-		
+		$opcion_edicion = $this->uri->segment(4);
+
+		if($opcion_edicion == 0)
+		{
+			$calle = $this->input->post('inpt_domicilio',TRUE);
+			$numero = $this->input->post('inpt_numdomicilio',TRUE);
+			$direccion  = $calle.' '.$numero;
+			
+			$data = array(
+				'Direccion' => $direccion, 
+			);
+		}
+		else if($opcion_edicion == 1)
+		{
+			$data = array(
+				'Nombre_Adulto' => $this->input->post('editNombre_Adulto',TRUE),
+				'Sexo' => $this->input->post('editSexo',TRUE),
+				'Telefono' => $this->input->post('editTelefono', TRUE),
+				'Edad' => $this->input->post('editEdad', TRUE),
+			);
+		}
+		 
 		$this->Folios_model->update_adulto($id_adulto, $data);
 		
-		echo "<script>alert('Datos InsertadosCorrectamente');window.location.href='".base_url()."index.php/Recepcion/info_adultos/".$id_adulto."';</script>";
+		echo "<script>alert('Datos Modificados Correctamente');window.location.href='".base_url()."index.php/Recepcion/info_adultos/".$id_adulto."';</script>";
 
 	}
+
+
+
 }
 ?>
