@@ -1,5 +1,5 @@
-CREATE DATABASE PRODEAMA;
-use PRODEAMA;
+CREATE DATABASE PRODEAMA2;
+use PRODEAMA2;
 
 CREATE TABLE CAT_TIPOS_USUARIOS(
 	id_tipo_usuario int not null auto_increment primary key,
@@ -17,21 +17,15 @@ CREATE TABLE CAT_USUARIOS(
     activo int,
     foreign key (nivel_usuario) references CAT_TIPOS_USUARIOS (id_tipo_usuario)
 );
-
+CREATE TABLE CAT_TIPO_SERVICIO(
+	id_tipo_servicio int not null auto_increment primary key,
+    Nombre_servicio varchar(30),
+    Descripcion_servicio varchar(60)
+);
 
 CREATE TABLE CATEGORIAS_REPRE(
 id_categoria_repres int not null auto_increment primary key,
 Nombre_categoria varchar (60)
-);
-
-CREATE TABLE CAT_REPRESENTANTES(
-	id_representante int not null auto_increment primary key,
-	Nombre_representante varchar(60),
-	Telefono_repre varchar(14),
-	id_adulto int,
-    id_categoria_repres int,    
-    foreign key (id_adulto) references CAT_ADULTOS (id_adulto),
-    foreign key (id_categoria_repres) references CATEGORIAS_REPRE (id_categoria_repres)
 );
 
 CREATE TABLE CAT_ADULTOS(
@@ -42,26 +36,27 @@ CREATE TABLE CAT_ADULTOS(
     Edad varchar(3),
     Sexo varchar(7),
     Direccion varchar (100),
-    observaciones varchar(100),
     primary key (id_adulto)
 );
-CREATE TABLE CAT_TIPO_SERVICIO(
-	id_tipo_servicio int not null auto_increment primary key,
-    Nombre_servicio varchar(30),
-    Descripcion_servicio varchar(60)
+CREATE TABLE CAT_REPRESENTANTES(
+	id_representante int not null auto_increment primary key,
+	Nombre_representante varchar(60),
+	Telefono_repre varchar(14),
+	id_adulto int(11),
+    id_categoria_repres int(11),    
+    foreign key (id_adulto) references CAT_ADULTOS (id_adulto),
+    foreign key (id_categoria_repres) references CATEGORIAS_REPRE (id_categoria_repres)
 );
-/*
+
 CREATE TABLE FOLIOS(
 	id_folio int not null auto_increment primary key,
 	A_registro int not null,
     Folio_adulto int not null,
     id_adulto int,
-    id_tipo_servicio int,
     fecha_comienzo varchar(40),
     fecha_termino varchar(40),
-    foreign key (id_tipo_servicio) references CAT_TIPO_SERVICIO (id_tipo_servicio),
     foreign key (id_adulto) references CAT_ADULTOS (id_adulto)
-);*/
+);
 
 DROP TABLE IF EXISTS `archivos`;
 CREATE TABLE `archivos` (
@@ -73,7 +68,7 @@ CREATE TABLE `archivos` (
   `nombre_archivo` varchar(45) DEFAULT NULL,
   `fecha` varchar (25),
   `activo` int(11) DEFAULT '1',
-  PRIMARY KEY (`id_archivo`)
+  PRIMARY KEY (`id_archivo`),
   foreign key (id_adulto) references CAT_ADULTOS (id_adulto),
   foreign key (id_usuario) references CAT_USUARIOS (id_usuario),
   foreign key (id_tipo_servicio) references CAT_TIPO_SERVICIO (id_tipo_servicio)
@@ -89,6 +84,8 @@ id_tipo_usuario int (11),
 Estado int(11) DEFAULT '1',
 foreign key (id_adulto) references CAT_ADULTOS (id_adulto)
 );
+
+
 insert into turnos (turno, id_adulto, fecha_turno, Area_atencion, Estado) values ('1', '2', '3/June/2019 09:43:06 PM', 'Algo', '0');
 
 SELECT * FROM CAT_FAMILIARES WHERE id_adulto = 15;
