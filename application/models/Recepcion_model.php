@@ -110,11 +110,15 @@ class Recepcion_model extends CI_Model {
         $this->db->insert('CAT_REPRESENTANTES',$data);
     }
 
-    public function get_archivos()
+    public function get_archivos($id_adulto)
     {
-        
-        $this->db->from('archivos');
-        $this->db->where('activo',1);
+        $this->db->select('archivos.id_archivo, cat_usuarios.nombre, Cat_tipo_servicio.Nombre_servicio, cat_usuarios.nivel_usuario, archivos.path, archivos.nombre_archivo, archivos.fecha');
+        $this->db->from('cat_usuarios');
+        $this->db->join('archivos', 'archivos.id_usuario = cat_usuarios.id_usuario');
+        $this->db->join('cat_tipo_servicio', 'archivos.id_tipo_servicio = Cat_tipo_servicio.id_tipo_servicio');
+        $this->db->where('id_adulto', $id_adulto);
+        $this->db->where('archivos.activo', 1);
+
         
         $query = $this->db->get();
 

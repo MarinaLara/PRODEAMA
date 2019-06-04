@@ -162,7 +162,7 @@ class Recepcion extends CI_Controller {
 			$id_adulto = $this->uri->segment(3);
 			$data = array(			 	
 			 	'datos_adultos' =>$this->Recepcion_model->get_adu($id_adulto),
-			 	'datos_archivos'=>$this->Recepcion_model->get_archivos(),
+			 	'datos_archivos'=>$this->Recepcion_model->get_archivos($id_adulto),
 
 			 	'datos_familia' =>$this->Recepcion_model->get_fam($id_adulto),
 			 	'categorias_repres' => $this->Recepcion_model->vercatrepres(),

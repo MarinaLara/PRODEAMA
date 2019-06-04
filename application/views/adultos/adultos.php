@@ -223,7 +223,7 @@
 						</button>';
 					}
 				?>
-			</div>			
+			</div>		
 		</div>
 	<hr>
 
@@ -337,7 +337,7 @@
 				<tr>
 					<th>ID</th>
 					<th>Fecha</th>
-					<th>Area</th>
+					<th>Subido por</th>
 					<th>Archivo</th>
 					<th>Opciones</th>
 				</tr>
@@ -349,13 +349,21 @@
 					<tr id="tr_<?= $row->id_archivo;?>" name="tr_<?= $row->id_archivo; ?>" >
 						<td><?= $row->id_archivo;?></td>
 						<td><?= $row->fecha;?></td>
-						<td></td>
+						<td><?= $row->nombre?></td>
 						<td>
 							<a href="<?=base_url().$row->path?>" target="_blanck"><?= $row->nombre_archivo;?></a>
 						</td>
-						
 						<td>
-							<a href="'.base_url().'index.php/Usuarios/eliminar_usuarios/'.$row->id_usuario.'" title="Eliminar este usuario" name="Eliminar" onclick="return confirm(\'¿ Esta seguro de eliminar al usuario ?\')">Eliminar</a>
+							<?php 
+								if($this->session->userdata('nivel_usuario') == $row->nivel_usuario)
+								{
+									//echo '<a href="">Modificar</a>';
+									
+									//echo '<label> / </label>';
+									
+									echo '<a href="'.base_url().'index.php/Archivos/eliminar_archivo/'.$row->id_archivo.'/'.$id_adulto.'" title="Eliminar este archivo" name="Eliminar" onclick="return confirm(\'¿ Esta seguro de eliminar el archivo ?\')">Eliminar</a>';
+								}
+							?>
 						</td>
 					</tr>
 				<?php
@@ -365,6 +373,9 @@
 		</table>	
 	</div>
 <br><br>
+
+
+
 
 <!-- MODAL PARA AGREGAR ARCHIVOS -->
 	<div class="modal fade" id="MODAL_FOLIOS" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

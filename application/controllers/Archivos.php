@@ -81,4 +81,13 @@ class Archivos extends CI_Controller {
         }
         redirect(base_url());
 	}
+
+	public function eliminar_archivo()
+	{
+		$id_archivo = $this->uri->segment(3);
+		$id_adulto = $this->uri->segment(4);
+
+		$this->Archivos_model->delete_archivos($id_archivo);
+		echo "<script>alert('Archivo eliminado correctamente');window.location.href='".base_url()."index.php/Recepcion/info_adultos/$id_adulto';</script>";
+	}
 }
