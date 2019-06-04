@@ -170,7 +170,7 @@
 			$Telefono = $row->Telefono;
 			$Edad = $row->Edad;
 			$Sexo = $row->Sexo;
-			
+			$Direccion = $row->Direccion;
 			
 		}
 	}
@@ -236,6 +236,9 @@
 			<label><b>Teléfono del adulto mayor</b></label>
 		</div>
 		<div class="col">
+			<label><b>Direccion del adulto mayor</b></label>
+		</div>
+		<div class="col">
 			<div class="row">
 				<div class="col"><label><b>Sexo</b></label></div>
 				<div class="col"><label><b>Edad</b></label></div>
@@ -249,6 +252,9 @@
 		</div>		
 		<div class="col">
 			<input type="text" disabled="" style="width:200px;height:40px" required="" pattern="\([0-9]{3}\) [0-9]{3}[ -][0-9]{4}"  title="Un número de teléfono válido consiste en un área de código de 3 dígitos entre paréntesis, un espacio, los tres primeros dígitos del número, un espacio o guion (-) y cuatro dígitos más" placeholder="(Código de área) 000-0000" maxlength="14" class="form-control" id="Telefono" name="Telefono" value="<?=$Telefono?>">
+		</div>
+		<div class="col">
+			<input type="text" disabled="" style="width:200px;height:40px" required=""  title="Una direccion valida consiste en un nombre de calle y un numero de casa" placeholder="Direccion del Adulto" maxlength="14" class="form-control" id="Telefono" name="Telefono" value="<?=$Direccion?>">
 		</div>
 		<div class="col">
 			<div class="row">
