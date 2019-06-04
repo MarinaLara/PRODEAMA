@@ -1,20 +1,16 @@
 <!--	THIS	-->
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.13/jquery.mask.min.js"></script>
+
+
 <script type="text/javascript" src="<?=base_url()?>js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?=base_url()?>js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
 <script type="text/javascript">
-	
-	//validacion campos domicilio
-	$("#inpt_domicilio").mask('ZZ',{translation:  {'Z': {pattern: /[áéíóúñüàèa-zA-Z\s]/, recursive: true}}});
-	$("#inpt_numdomicilio").mask('ZZ',{translation:  {'Z': {pattern: /[0-9\s]/, recursive: true}}});
-
-	//Datatable sencilla que permite encabezados con rowspan
+//Datatable sencilla que permite encabezados con rowspan
      $(document).ready(function() {
-         $('#Consulta_adU').DataTable({
+         $('#Consulta_archivos').DataTable({
              "dom": 'T<"clear">lfrtip',
              "tableTools": {
                  "sRowSelect": "multi",
@@ -43,6 +39,12 @@
              }
          });
      } );
+</script>
+<script type="text/javascript">
+	
+	//validacion campos domicilio
+	$("#inpt_domicilio").mask('ZZ',{translation:  {'Z': {pattern: /[áéíóúñüàèa-zA-Z\s]/, recursive: true}}});
+	$("#inpt_numdomicilio").mask('ZZ',{translation:  {'Z': {pattern: /[0-9\s]/, recursive: true}}});
 	
 	//muestra los campos a editar pero los deshabilita para seleccionar el que se desee modificar
 	function hab() 
@@ -288,8 +290,8 @@
 				<div class="col"><label><h6>Número</h6></label></div>
 				<div class="col"></div>
 				<div class="col">
-					<!--<a style="float: right;" class="btn btn-outline-secondary btn-lg"  title="Estudio socio economico" href="<?=base_url()?>index.php/Folios/realizarESE/<?=$id_adulto?>" role="button">Realizar ESE</a>-->
-					<a style="float: right;" class="btn btn-outline-secondary btn-lg"  title="Estudio socio economico" role="button">Realizar ESE</a>
+					<!--<a style="float: right;" class="btn btn-outline-secondary btn-lg"  title="Estudio socio economico" href="<?=base_url()?>index.php/Folios/realizarESE/<?=$id_adulto?>" role="button">Realizar ESE</a>
+					<a style="float: right;" class="btn btn-outline-secondary btn-lg"  title="Estudio socio economico" role="button">Realizar ESE</a>-->
 				</div>
 			</div>
 			<div class="row">
@@ -341,50 +343,14 @@
 		<button type="button" style="float: right;" title="Agregar un nuevo folio" class="btn btn-outline-secondary" data-toggle="modal" data-target="#MODAL_FOLIOS" data-whatever="@mdo">Agregar +</button>
 
 		<br></br>
-		<!-- TABLA PARA VER ARCHIVOS -->
-		<!--<table id="Consulta_expedientes" name="Consulta_expedientes" class="table table-bordered">
-			<thead>
-				<tr>
-					<th>Archivo</th>
-					<th>Servicio requerido</th>
-					<th>Fecha solicitud</th>
-					<th>Opciones</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-					if($datos_folios  != FALSE)
-					{
-						foreach ($datos_folios->result() as $row) {
-							echo '<tr>';
-								echo "<td>";
-									echo $row->Folio_adulto;
-									echo "-";
-									echo $row->A_registro;
-								echo '</td>';
-								echo "<td>";
-									echo $row->Nombre_servicio;
-								echo '</td>';
-								echo "<td>";
-									echo $row->fecha_comienzo;
-								echo '</td>';
-								echo '<td>';
-									 echo '<a href="'.base_url().'index.php/Folios/folio/'.$row->id_folio.'" title="Ver más información del Adulto" name="VerDetalles">Ver detalles</a>';
-									  
-								echo '</td>';
-							echo '</tr>';
-						}
-					}
-				?>
-			</tbody>
-		</table>-->
+
 		<table id="Consulta_archivos" name="Consulta_archivos" style="width:100%" class="display table table-striped">
 			<thead>
 				<tr>
+					<th>ID</th>
+					<th>Fecha</th>
+					<th>Area</th>
 					<th>Archivo</th>
-					<th>Nombre</th>
-					<!--<th>Tipo</th>
-					<th>Fecha</th>-->
 					<th>Opciones</th>
 				</tr>
 			</thead>
@@ -393,13 +359,16 @@
 					foreach ($datos_archivos->result() as $row) {
 				?>
 					<tr id="tr_<?= $row->id_archivo;?>" name="tr_<?= $row->id_archivo; ?>" >
-						<td>
-							<center><?= $row->id_archivo;?></center>
-						</td>
+						<td><?= $row->id_archivo;?></td>
+						<td><?= $row->fecha;?></td>
+						<td></td>
 						<td>
 							<a href="<?=base_url().$row->path?>" target="_blanck"><?= $row->nombre_archivo;?></a>
 						</td>
-						<td></td>
+						
+						<td>
+							<a href="'.base_url().'index.php/Usuarios/eliminar_usuarios/'.$row->id_usuario.'" title="Eliminar este usuario" name="Eliminar" onclick="return confirm(\'¿ Esta seguro de eliminar al usuario ?\')">Eliminar</a>
+						</td>
 					</tr>
 				<?php
 					}
@@ -425,13 +394,16 @@
 						
 						<form action="<?=base_url()?>index.php/archivos/crear_archivo" onsubmit="return confirm('¿Realmente seguro de que los datos están correctos?                          No se podrán editar tan fácil');"  method="post" enctype="multipart/form-data">
 							<div class="form-group">
+								<input type="text" style="display: none;" value="<?=$id_adulto?>" name="id_adulto" id="id_adulto">
+								<input readonly type="text" style="width: 250px; height:40px; display: none;" class="form-control" name="fecha_subida" id="fecha_subida" value="<?php date_default_timezone_set('America/Los_Angeles');
+					$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"); 
+					echo date('d')."/".$meses[date('n')-1]. "/".date('Y') ;		 			 
+					?>">
+
 								<label><b>Nombre de archivo</b></label>
 								<input type="text" id="nombre_archivo" name="nombre_archivo" class="form-control">
 								<br>
-								<label>Seleccionar Archivo</label>
-				 				<input type="file" class="form-control" id="archivo" name="archivo" name="uploadedfile" required="true" >
-				 				<!--<br>
-				 				<label><b>Tipo de servicio solicitado</b></label>
+								<label><b>Tipo de servicio solicitado</b></label><br>
 								<select class="custom-select" title="Tipo de servicio solicitado" id="select_tipo_servicio" style="width:250px;height:40px" name="select_tipo_servicio">
 									<option value=""> Seleccione el tipo de servicio</option>
 									<?php
@@ -446,7 +418,10 @@
 				                            } 
 				                        }                                    
 				                    ?>
-								</select>-->
+								</select>
+								<br><br>
+								<label>Seleccionar Archivo</label>
+				 				<input type="file" class="form-control" id="archivo" name="archivo" name="uploadedfile" required="true" >
 
 								<br></br>
 								<button class="btn btn-outline-success"  type="submit">Enviar</button>
