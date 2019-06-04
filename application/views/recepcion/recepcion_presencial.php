@@ -397,37 +397,15 @@
 
 					<br>
 					<div class="row">
-						<div class="col">
-							<label><b>Tipo de servicio solicitado</b></label>
-							<select class="custom-select" title="Tipo de servicio solicitado" id="select_tipo_servicio" style="width:250px;height:40px" name="select_tipo_servicio">
-								<option value=""> Seleccione el tipo de servicio</option>
-								<?php
-			                        if($tipos_servicios != FALSE)
-			                        {
-			                            foreach ($tipos_servicios->result() as $row) 
-			                            {
-			                                echo '<option value="'.$row->id_tipo_servicio.'">';
-			                                    echo $row->Nombre_servicio;
-			                                echo '</option>';
-			                        
-			                            } 
-			                        }                                    
-			                    ?>
-							</select>
-						</div>
+						
 						<div class="col">
 							<label><b>Edad</b></label>
 							<input type="text" style="width:70px;height:40px" maxlength="3" class="form-control" id="Edad" name="Edad">
 						</div>
 					</div>
 
-					<br>
-					<div class="row">
-						<div class="col">
-							<label><h6>Observaciones</h6></label>
-							<input type="text" class="form-control" id="txt_obs" name="txt_obs" rows="3">
-						</div>
-					</div>
+					
+
 					<br>
 				</div>
 

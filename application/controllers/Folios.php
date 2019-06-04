@@ -88,7 +88,7 @@ class Folios extends CI_Controller {
 			'A_registro' => date("Y"),
 			'Folio_adulto' => $Folio_adulto,
 			'id_adulto' => $id_adulto,
-			'id_tipo_servicio' => $this->input->post('select_tipo_servicio', TRUE),
+			//'id_tipo_servicio' => $this->input->post('select_tipo_servicio', TRUE),
 			'fecha_comienzo' => $this->input->post('fecha_registro',TRUE),
 		);
 		

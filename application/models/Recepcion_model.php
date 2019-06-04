@@ -238,11 +238,10 @@ class Recepcion_model extends CI_Model {
 
     public function verfolios($id_adulto)
     {
-        $this->db->select('id_folio, A_registro, Folio_adulto, id_adulto, Nombre_servicio, fecha_comienzo');
-        $this->db->from('FOLIOS df');
-        $this->db->join('CAT_TIPO_SERVICIO cts', 'df.id_tipo_servicio =cts.id_tipo_servicio');
+        $this->db->select('id_folio, A_registro, Folio_adulto, id_adulto, fecha_comienzo');
+        $this->db->from('FOLIOS');
         $this->db->where('id_adulto', $id_adulto);
-        $this->db->order_by('df.id_adulto', 'DESC');
+        $this->db->order_by('id_adulto', 'DESC');
 
         $query = $this->db->get();
 

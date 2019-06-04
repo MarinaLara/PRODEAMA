@@ -50,13 +50,13 @@
 	<center><h1>BUSQUEDA ADULTOS</h1></center>
 	<hr>
 	
-	<center>
+	<!--<center>
 		<div>
 			<a class="btn btn-secondary" style=" width: 200px" title="Agregar adulto" href="<?=base_url()?>index.php/Recepcion" role="button">Nuevo</a>
 		</div>
-	</center>
+	</center>-->
 
-	<div style="margin-top: -20px">
+	<div>
 		<table id="Consulta_adU" name="Consulta_adU" style="width:100%" class="display table table-striped">
 			<thead>
 				<tr>

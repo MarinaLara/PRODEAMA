@@ -258,7 +258,6 @@ class Recepcion extends CI_Controller {
 			'Telefono' => $this->input->post('Telefono', TRUE),
 			'Edad' => $this->input->post('Edad', TRUE),
 			'Sexo' => $this->input->post('customRadioInline1', TRUE),
-			'observaciones' => $this->input->post('txt_obs', TRUE),
 		);
 		
 		$this->Recepcion_model->set_adultos($data); //INSERTA AL ADULTO
@@ -278,7 +277,7 @@ class Recepcion extends CI_Controller {
 			'A_registro' => date("Y"),
 			'Folio_adulto' => $Folio_adulto,
 			'id_adulto' => $I_max,
-			'id_tipo_servicio' => $this->input->post('select_tipo_servicio', TRUE),
+			//'id_tipo_servicio' => $this->input->post('select_tipo_servicio', TRUE),
 			'fecha_comienzo' => $this->input->post('fecha_registro',TRUE),
 		);
 		$this->Recepcion_model->set_folios($data_folio);

@@ -192,7 +192,7 @@
 			$id_folio = $row->id_folio;
 			$A_registro = $row->A_registro;
 			$Folio_adulto = $row->Folio_adulto;
-			$Nombre_servicio = $row->Nombre_servicio;			
+			//$Nombre_servicio = $row->Nombre_servicio;			
 			$fecha_comienzo = $row->fecha_comienzo;
 
 		}
@@ -210,7 +210,7 @@
 			</div>			
 			<div class="col">
 				<center>
-					<label style="color: rgb(199, 0, 57);"><h3> FOLIO: <?=$Folio_adulto?>-<?=$A_registro?></h3></label>
+					<label style="color: rgb(199, 0, 57);"><h3> EXPEDIENTE: <?=$Folio_adulto?>-<?=$A_registro?></h3></label>
 				</center>
 			</div>
 			<div class="col">
@@ -241,9 +241,7 @@
 				<div class="col"><label><b>Edad</b></label></div>
 			</div>
 		</div>
-		<div class="col">
-			<label><b>Tipo de servicio solicitado</b></label>
-		</div>		
+				
 	</div>
 	<div class="row">
 		<div class="col">
@@ -262,9 +260,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col">
-			<input type="text" disabled="" value="<?=$Nombre_servicio?>" class="form-control" id="Servicio_req" name="Servicio_req" >
-		</div>		
+	
 	</div>
 	<hr>	
 
