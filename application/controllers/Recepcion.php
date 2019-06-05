@@ -315,6 +315,7 @@ class Recepcion extends CI_Controller {
 		}
 		
 		//AQUI TURNOS
+
 		$e1 = trim($this->input->post('select_dequetipo'));
 		$vartipoTEL;
 		if ($e1 == "Tel") 
@@ -354,11 +355,11 @@ class Recepcion extends CI_Controller {
 				{
 					$turnoM =1;
 				}
-				else if ($fecha_actual == $FechaM && $turnoM == 1)
+				else if (($fecha_actual == $FechaM) && ($turnoM >= 1))
 				{
-					$turnoM++;
+					$turnoM= $turnoM+1;
 				}
-				else if ($fecha_actual == $FechaM && $turnoM == 100)
+				else if (($fecha_actual == $FechaM) && ($turnoM == 100))
 				{
 					$turnoM=1;
 				}

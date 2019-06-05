@@ -64,6 +64,27 @@ class Trab_social extends CI_Controller {
 		}
 	}
 
+	public function update_estado()
+	{
+		$idadulto = trim($this->input->post('id_adulto'));
+		$data = array(
+			'estado' => trim($this->input->post('estado')),
+			'id_adulto' => trim($this->input->post('id_adulto')),
+		);
+
+		$CONSULTA_IDTURNO = $this->Trab_social_model->get_IDT($idadulto);
+		if($CONSULTA_IDTURNO != FALSE)
+		{
+			foreach ($CONSULTA_IDTURNO->result() as $row) {
+				$ID = $row->id_turno;
+			}
+		}
+
+		
+		$this->Trab_social_model->up_estado($data, $ID);
+		echo json_encode($data);
+	}
+
 	public function agregar_turno()
 	{
 		if($this->input->is_ajax_request())
@@ -95,11 +116,11 @@ class Trab_social extends CI_Controller {
 				{
 					$turnoM =1;
 				}
-				else if ($fecha_actual == $FechaM && $turnoM == 1)
+				else if (($fecha_actual == $FechaM) && ($turnoM >= 1))
 				{
-					$turnoM++;
+					$turnoM= $turnoM+1;
 				}
-				else if ($fecha_actual == $FechaM && $turnoM == 100)
+				else if (($fecha_actual == $FechaM) && ($turnoM == 100))
 				{
 					$turnoM=1;
 				}

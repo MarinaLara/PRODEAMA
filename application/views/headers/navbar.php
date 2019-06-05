@@ -26,9 +26,9 @@
           <a class="dropdown-item" href="<?=base_url()?>index.php/Usuarios/tipos_usuarios">Crear tipo</a>
         </div>
       </li> 
-      <li class="nav-item">
+      <!--<li class="nav-item">
         <a class="nav-link" href="<?=base_url()?>index.php/Recepcion/Vconsulta_adultos">Busqueda<span class="sr-only">(current)</span></a>
-      </li> 
+      </li> -->
 
       <li class="nav-item">
         <a class="nav-link" href="<?=base_url()?>index.php/Recepcion/presencial">Recepción<span class="sr-only">(current)</span></a>

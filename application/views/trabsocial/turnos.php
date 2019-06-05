@@ -13,6 +13,7 @@
      $(document).ready(function() {
          $('#Consulta_turnos').DataTable({
              "dom": 'T<"clear">lfrtip',
+              "ordering": false,
              "tableTools": {
                  "sRowSelect": "multi",
                  "aButtons": [
@@ -42,7 +43,7 @@
      } );
 </script>
 
-<div class="container">
+<div class="container" style="margin-top: -75px">
 	<br>
 	<center><h1> TURNOS </h1></center>
 	<hr><br>
@@ -65,11 +66,10 @@
                                     echo $row->turno;
                                 echo '</td>';
                                 echo "<td>";
-                                    echo $row->id_adulto;
+                                    echo $row->Nombre_adulto;
                                 echo '</td>';
                                 echo '<td>';
                                      echo '<a href="'.base_url().'index.php/Recepcion/info_adultos/'.$row->id_adulto.'" title="Atender" name="atender">Atender</a>';
-                                      
                                 echo '</td>';
                             echo '</tr>';
                         }

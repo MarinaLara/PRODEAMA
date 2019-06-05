@@ -158,6 +158,26 @@
 		}
 	}
 
+	$(document).ready(function() {
+	    $('#fin_btn').on('click', function() {
+			var  estado = 1;
+			var id_adulto = <?= $this->uri->segment(3); ?>;
+	        var data = {
+				estado : estado,
+				id_adulto : id_adulto,
+			}
+			
+			if (confirm('¿Seguro que desea finalizar?')) 
+			{
+				cargar_ajax.run_server_ajax('index.php/Trab_social/update_estado', data);
+				window.location.href = "<?=base_url()?>index.php/Main";	
+			}
+
+			
+	    });
+	    
+	});
+
 </script>
 
 <?php
@@ -210,7 +230,7 @@
 			</div>			
 			<div class="col">
 				<center>
-					<label style="color: rgb(199, 0, 57);"><h3> EXPEDIENTE: <?=$Folio_adulto?>-<?=$A_registro?></h3></label>
+					<!--<label style="color: rgb(199, 0, 57);"><h3> EXPEDIENTE: <?=$Folio_adulto?>-<?=$A_registro?></h3></label>-->
 				</center>
 			</div>
 			<div class="col">
@@ -275,9 +295,12 @@
 			<button class="btn btn-secondary btn-lg" style="width: 200px" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Otros</button>
 		</td>
 			<td>&nbsp; &nbsp;</td>
-		<td><button class="btn btn-success btn-lg" style="width: 250px" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">Archivos</button>
-			
-			
+		<td>
+			<button class="btn btn-success btn-lg" style="width: 250px" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">Archivos</button>
+		</td>
+			<td>&nbsp; &nbsp;</td>
+		<td>
+			<button style="margin-left: 1000px; margin-top: -75px;" id="fin_btn" name="fin_btn" type="button" class="btn btn-danger btn-lg">Finalizar</button>
 		</td>
 
 	</div>
