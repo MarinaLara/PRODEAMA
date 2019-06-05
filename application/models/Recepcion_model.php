@@ -54,6 +54,47 @@ class Recepcion_model extends CI_Model {
         $this->db->insert('FOLIOS', $data);
 
     }
+    public function insert_turnos2($data_turno)
+    {
+        $this->db->insert('turnos',$data_turno);
+    }
+    public function get_turno2()
+    {
+        $this->db->select('turno');
+        $this->db->from('TURNOS');
+        $this->db->order_by('id_turno', 'DESC');
+        $this->db->LIMIT('1');
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        } 
+    }
+
+    public function get_fecha2()
+    {
+        $this->db->select('fecha_turno');
+        $this->db->from('TURNOS');
+        $this->db->order_by('id_turno', 'DESC');
+        $this->db->LIMIT('1');
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        } 
+    }
 
 //--------------------------------------------------------------------
     // RECUPERAR EL ULTIMO ADULTO INGRESADO PARA INSERTAR EN LA TABLA DE FAMILIARES

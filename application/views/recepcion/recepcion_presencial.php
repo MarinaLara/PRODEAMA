@@ -3,6 +3,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.13/jquery.mask.min.js"></script>
 
 
+
 <script type="text/javascript" src="<?=base_url()?>js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?=base_url()?>js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
@@ -47,6 +48,7 @@
 		    }
 		}
 
+		
         alert(id_adulto);
 
         document.getElementById('div_opciones_busqueda').style.display = '';
@@ -158,9 +160,9 @@
 				document.getElementById("div_quien").style.display = '';
 				document.getElementById("div_selquien").style.display = '';
 			});*/
-
 			if ($(this).val() == "SEG") 
 			{
+
 				//Despliega modal de busqueda
 				$('#exampleModal').modal('show');
 			}else
@@ -176,13 +178,23 @@
 			{
 				document.getElementById("div_vez").style.display = '';
 				document.getElementById("div_selvez").style.display = '';
+			});
+		}); 
 
+		$('#turno-btn').on('click', function() {
+				var id_tipo_usuario = $('#sel_turna').val();
+				var get_id = document.getElementsByName('radiobusqueda');
+				var id_adulto;
+				
+				for(var i = 0; i < get_id.length; i++){
+				    if(get_id[i].checked){
+				        id_adulto = get_id[i].value;
+				    }
+				}
 				var vartipoTEL;
-
-				if ($(this).val() == "Tel") 
+				if ($('#select_dequetipo').val() == "Tel") 
 				{
 					vartipoTEL = 2;
-					alert(vartipoTEL);
 					//0 = POR ATENDER, PRESENCIAL
 					//1 = ATENDIDO
 					//2 = TELEFONICO, PRIORIDAD, POR ATENDER
@@ -190,8 +202,16 @@
 				{
 					vartipoTEL = 0;
 				}
-			});
-		}); 
+				var fecha = document.getElementById("fecha_registro").value;
+				var data = {
+					id_tipo_usuario : $('#sel_turna').val(),
+					id_adulto : id_adulto,
+					estado : vartipoTEL,
+					fecha_turno : fecha,
+				}
+				cargar_ajax.run_server_ajax('index.php/Trab_social/agregar_turno', data);
+				window.location.href = "<?=base_url()?>index.php/Main";
+		    });
 
 		$('#select_quienpresenta').change(function(){
 	        if($(this).val() == "Otro")
@@ -327,7 +347,8 @@
 			<div class="col">
 				<input readonly type="text" style="width: 250px; height:40px; " class="form-control" name="fecha_registro" id="fecha_registro" value="<?php date_default_timezone_set('America/Los_Angeles');
 					$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"); 
-					echo date('d')."/".$meses[date('n')-1]. "/".date('Y h:i:s A') ;		 			 
+					echo date('d')."/".$meses[date('n')-1]. "/".date('Y') ;	
+					//echo date('d')."/".$meses[date('n')-1]. "/".date('Y h:i:s A') ;		 			 
 					?>">
 			</div>
 			<div id="div_selquien" class="col" style="display: none;">
@@ -556,15 +577,22 @@
 							<div class="col">
 								<label><b>¿Quién presenta la denuncia?</b></label>
 								<br>
-								<select style="width:250px;" name="select_quienpresenta_busqueda" id="select_quienpresenta_busqueda" class="form-control">
+								<select style="width:225px;" name="select_quienpresenta_busqueda" id="select_quienpresenta_busqueda" class="form-control">
 									<option value="">Seleccione una opción</option>
 									<option value="AM">Adulto mayor</option>
 									<option value="Otro">Otro</option>
 								</select>
 							</div>
 							<div class="col">
-								<button class="btn btn-outline-success" style="margin-top: 8%; width: 250px;" type="submit">Enviar</button>
+								<label><b>Turnar a:</b></label>
+								<br>	
+								<select class="form-control" style="width: 250px;" id="sel_turna" name="sel_turna">
+									<option value="">Seleccione una opción</option>
+									<option value="2">Trabajador social</option>
+									<option value="3">Abogado</option>
+								</select>
 							</div>
+							
 						</div>
 
 			        </div>
@@ -574,32 +602,34 @@
 		        	</div>
 		        </div>
 		    </form>
-
 		    <div class="modal-footer">
+		        <button class="btn btn-outline-success" id="turno-btn" name="turno-btn" style="width: 150px;" type="button">Enviar</button>
+
 		        <button id="cancelar" name="cancelar" type="button" class="btn btn-danger" style="width: 150px;" data-dismiss="modal">Cerrar</button>
 		    </div>
 		</div>
     </div>
 </div>
-  
-  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
+ 
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 		    $('#buscar-btn').on('click', function() {
 				var nombreAdulto = $('#Nombre_Adulto_Busqueda').val();
 				var edad = $('#Edad_Busqueda').val();
-		        
+		        //puedes volver a recuperar el
 		        $("#central").load('<?=base_url()?>index.php/Recepcion/busqueda_existente/' + nombreAdulto + '/' + edad);
 		        return false;
 		    });
 
-		    $('#cancelar').on('click', function() {
+		    
+
+		     $('#cancelar').on('click', function() {
 				$('#Nombre_Adulto_Busqueda').val('');
 				$('#Edad_Busqueda').val('');
 				document.getElementById('central').style.display = 'none';
 		    });
-
-		    
 		    
 		});
 	</script>

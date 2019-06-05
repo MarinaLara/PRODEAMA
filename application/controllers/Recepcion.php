@@ -314,6 +314,68 @@ class Recepcion extends CI_Controller {
 			}
 		}
 		
+		//AQUI TURNOS
+		$e1 = trim($this->input->post('select_dequetipo'));
+		$vartipoTEL;
+		if ($e1 == "Tel") 
+		{
+			$vartipoTEL = 2;
+			//0 = POR ATENDER, PRESENCIAL
+			//1 = ATENDIDO
+			//2 = TELEFONICO, PRIORIDAD, POR ATENDER
+		}else
+		{
+			$vartipoTEL = 0;
+		}
+
+		$fecha_actual = trim($this->input->post('fecha_turno'));
+			$CONSULTA_FECHA = $this->Recepcion_model->get_fecha2();
+			if($CONSULTA_FECHA != FALSE)
+			{
+				foreach ($CONSULTA_FECHA->result() as $row) {
+					$FechaM = $row->fecha_turno;
+				}
+			}
+
+			$CONSULTA_TURNO = $this->Recepcion_model->get_turno2();
+			if($CONSULTA_TURNO != FALSE)
+			{
+				foreach ($CONSULTA_TURNO->result() as $row) {
+					$turnoM = $row->turno;
+				}
+			}
+			if ($turnoM == 0 || $turnoM == NULL) 
+			{
+				$turnoM = 1;
+			}
+			else
+			{
+				if ($fecha_actual != $FechaM) 
+				{
+					$turnoM =1;
+				}
+				else if ($fecha_actual == $FechaM && $turnoM == 1)
+				{
+					$turnoM++;
+				}
+				else if ($fecha_actual == $FechaM && $turnoM == 100)
+				{
+					$turnoM=1;
+				}
+			}
+			
+
+			$data_turno = array(
+				'id_tipo_usuario' => 2, //manda directo al ts
+				'id_adulto' => $I_max,
+				'estado' => $vartipoTEL,
+				'turno' => $turnoM,
+				'fecha_turno' => $fecha_actual,
+			);
+
+			$this->Recepcion_model->insert_turnos2($data_turno);
+			echo json_encode($data_turno);
+
 		//ALERT Y REDIRECT
 		echo "<script>alert('Datos Insertados Correctamente');window.location.href='".base_url()."';</script>";
 

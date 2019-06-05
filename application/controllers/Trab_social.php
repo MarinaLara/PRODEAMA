@@ -64,5 +64,63 @@ class Trab_social extends CI_Controller {
 		}
 	}
 
+	public function agregar_turno()
+	{
+		if($this->input->is_ajax_request())
+		{
+
+			$fecha_actual = trim($this->input->post('fecha_turno'));
+			$CONSULTA_FECHA = $this->Trab_social_model->get_fecha();
+			if($CONSULTA_FECHA != FALSE)
+			{
+				foreach ($CONSULTA_FECHA->result() as $row) {
+					$FechaM = $row->fecha_turno;
+				}
+			}
+
+			$CONSULTA_TURNO = $this->Trab_social_model->get_turno();
+			if($CONSULTA_TURNO != FALSE)
+			{
+				foreach ($CONSULTA_TURNO->result() as $row) {
+					$turnoM = $row->turno;
+				}
+			}
+			if ($turnoM == 0 || $turnoM == NULL) 
+			{
+				$turnoM = 1;
+			}
+			else
+			{
+				if ($fecha_actual != $FechaM) 
+				{
+					$turnoM =1;
+				}
+				else if ($fecha_actual == $FechaM && $turnoM == 1)
+				{
+					$turnoM++;
+				}
+				else if ($fecha_actual == $FechaM && $turnoM == 100)
+				{
+					$turnoM=1;
+				}
+			}
+						
+			$data = array(
+				'id_tipo_usuario' => trim($this->input->post('id_tipo_usuario')),
+				'id_adulto' => trim($this->input->post('id_adulto')),
+				'estado' => trim($this->input->post('estado')),
+				'turno' => $turnoM,
+				'fecha_turno' => $fecha_actual,
+			);
+
+			$this->Trab_social_model->insert_turnos($data);
+			echo json_encode($data);
+		}
+		else
+		{
+            show_404();
+        }
+	}
+
 }
 ?>
